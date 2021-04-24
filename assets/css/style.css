@@ -34,7 +34,12 @@ main {
     grid-column: 2/12;
 }
 
-#timer {
+#greetingBlock {
+    grid-column: 2/5;
+    text-align: center;
+}
+
+#timerDiv {
     text-align: center;
     border: 1px solid black;
     grid-row: 2;
@@ -49,6 +54,7 @@ main {
 }
 
 #questSpan {
+    display: none;
     grid-row: 1;
     grid-column: 2/5;
     border: 1px solid black;
@@ -60,4 +66,20 @@ main {
     grid-template-rows: repeat(5, 1Fr);
     border: 1px solid black;
     min-height: fit-content;
+}
+
+//Answer choice labels
+#multipleChoice {
+    display: flex;
+    flex-direction: row;
+    /* flex-wrap: wrap; */
+    font-size: 1rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#multipleChoice label {
+    display: inline-block;
+    width: 90%;
+    font-size: 1.5rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }

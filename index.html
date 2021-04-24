@@ -8,14 +8,15 @@
     <meta name="description" content="Code Quiz to test coding abilities and test speed of knowledge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="./assets/css/style.css">
+    <!-- <script async src="./assets/js/questions.js"></script> -->
     <script defer src="./assets/js/script.js"></script>
 </head>
 
 <body>
     <header>
         <h1>Code Quiz</h1>
-        <div id="timer">
-            <p>Timer</p>
+        <div id="timerDiv">
+            <p class="timer">Timer</p>
         </div>
         <div id="divUID">
             <p id="glUser">Good luck, #input</p>
@@ -29,8 +30,27 @@
                 <button id="nameBtn" type="button" onclick="nameSubmit()">Submit</button>
             </div>
             <span id="questSpan">
-               
+                <h2 id="Question"></h2>
+                <form id="multipleChoice">
+                    <label for="op1"> 
+                         <input id="op1" type="radio">
+                    </label>
+                    <label for="op2">
+                    <input id = "op2" type="radio"> 
+                    </label>
+                    <label for="op3">
+                    <input id="op3" type="radio">
+                    </label>
+                    <label for="op4">
+                    <input id = "op4" type="radio">
+                    </label>
+                </form>
+            <button type="button" id="next">Next</button>
+            <button type="button" id="submit">Submit</button>
             </span>
+            <div id="results">
+
+            </div>
         </section>
     </main>
 
