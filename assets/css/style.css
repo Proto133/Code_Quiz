@@ -77,7 +77,8 @@ main {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-#multipleChoice label {
+//may have to redo -switched from labels to buttons
+#multipleChoice button {
     display: inline-block;
     width: 90%;
     font-size: 1.5rem;

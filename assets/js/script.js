@@ -114,18 +114,26 @@ var quizQs = [{
 
 ];
 
+var currentQuestion = 0
+
 function quiz() {
     var h2Question = document.querySelector("#Question");
-    var op1 = document.querySelector('label[for="op1"');
-    var op2 = document.querySelector('label[for="op2"');
-    var op3 = document.querySelector('label[for="op3"');
-    var op4 = document.querySelector('label[for="op4"');
-    h2Question.textContent = quizQs[0].question;
-    op1.innerHTML = "a) " + quizQs[0].answers.a;
-    op2.innerHTML = "b) " +
-        quizQs[0].answers.b;
-    op3.innerHTML = "c) " +
-        quizQs[0].answers.c;
-    op4.innerHTML = "d) " +
-        quizQs[0].answers.d;
+    var op1 = document.querySelector("#op1");
+    var op2 = document.querySelector("#op2");
+    var op3 = document.querySelector("#op3");
+    var op4 = document.querySelector("#op4");
+    h2Question.textContent = quizQs[currentQuestion].question;
+    op1.innerHTML = "a) " + quizQs[currentQuestion].answers.a;
+    op1.setAttribute("value", quizQs[currentQuestion].answers.a);
+    op2.innerHTML = "b) " + quizQs[currentQuestion].answers.b;
+    op2.setAttribute("value", quizQs[currentQuestion].answers.b);
+    op3.innerHTML = "c) " + quizQs[currentQuestion].answers.c;
+    op3.setAttribute("value", quizQs[currentQuestion].answers.c);
+    op4.innerHTML = "d) " + quizQs[currentQuestion].answers.d;
+    op4.setAttribute("value", quizQs[currentQuestion].answers.d);
+
+}
+
+function userAnswer() {
+
 }
