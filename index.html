@@ -50,16 +50,17 @@
                     <dt>Time Spent On Quiz: </dt>
                     <dd id="timeSpent"></dd>
                 </dl>
-                <button id="allDone" onclick="showScoreList()">Show Recent Scores</button>
+                <button id="allDone" onclick="updateList()">Show Recent Scores</button>
             </div>
             <section id="scoreboard">
                 <div id="scoreCard">
                     <h3>Scoreboard</h3>
-                    <object id="user1"></object>
-                    <object id="user2"></object>
-                    <object id="user3"></object>
-                    <object id="user4"></object>
-                    <object id="user5"></object>
+                    <ul>
+                        <li><b>Name | Questions Correct | Time</b></li>
+                        <li id="user1"></li>
+                        <li id="user2"></li>
+                        <li id="user3"></li>
+                    </ul>
                     <button id="againBtn" onclick="startOver()">Try Again?</button>
                 </div>
 

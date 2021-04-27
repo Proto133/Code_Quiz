@@ -36,7 +36,7 @@
 //     },
 //     {
 //         answers: {
-//             a: "<script src= . . .></script>",
+//             a: "<script src= . . ."+"</script>",
 //             b: "<link rel='script' href= . . .>",
 //             c: "<meta name='script' src= . . . ><script>",
 //             d: "You don't insert a Javascript-- it just is."

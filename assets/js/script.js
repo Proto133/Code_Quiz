@@ -1,11 +1,11 @@
 //Input User name and change the value of #input to reflect their response
 var nameBtn = document.querySelector("#nameBtn");
-var last5 = []
+var last3 = [];
 var userStats = {
     name: "",
     score: "",
     time: "",
-}
+};
 
 //GreetingBlock Function just to log and store the user name and start quiz timer.
 function nameSubmit() {
@@ -15,7 +15,7 @@ function nameSubmit() {
     var userName = document.querySelector("#input").value;
     var glUser = document.querySelector("#glUser");
     glUser.textContent = "Good luck, " + userName;
-    span.setAttribute("style", "display: block;")
+    span.setAttribute("style", "display: block;");
     greetingBlock.setAttribute("style", "display:none;");
     userStats.name = userName
     quiz();
@@ -32,10 +32,12 @@ var timerDiv = document.querySelector('#timerDiv');
 var originalTimer = 500;
 var startTime = 500;
 var timeInterval = "";
+var x = 0
 
 //Create the timer function
 function quizTime() {
-    timerElement.textContent = startTime + " seconds left."
+    x = 1000;
+    // timerElement.textContent = startTime + " seconds left."
 
     //timerElement
     timerInterval = setInterval(function() {
@@ -47,7 +49,7 @@ function quizTime() {
             timerElement.textContent = "ALL DONE!!";
         }
 
-    }, 1000);
+    }, x);
 }
 var timeLeft = ""
 localStorage.setItem("Finished", timeLeft)
@@ -60,7 +62,7 @@ function stopTimer() {
         //save this time to storage
         localStorage.setItem("Finished", originalTimer - startTime);
     };
-    startTime = 0
+    startTime = 0;
 
 }
 
@@ -78,9 +80,9 @@ var quizQs = [{
     {
         question: "Where is the correct place to insert a JavaScript?",
         answers: {
-            a: "<script src= . . .></script>",
-            b: "<link rel='script' href= . . .>",
-            c: "<meta name='script' src= . . . ><script>",
+            a: "<script src='script.js'></script>",
+            b: "<link rel='script' href='script.js'>",
+            c: "<meta name='script' src='script.js'><script> ",
             d: "You don't insert a Javascript-- it just is."
         },
         correctAnswer: "a"
@@ -103,7 +105,7 @@ var quizQs = [{
             c: "if(i==10){}",
             d: "if i=10{}"
         },
-        correctAnswer: "b"
+        correctAnswer: "c"
     },
     {
         question: "How does a FOR loop start?",
@@ -121,7 +123,7 @@ var quizQs = [{
             a: "alert(Hello World);",
             b: "msg('Hello World');",
             c: "alertBox('Hello World');",
-            d: "alert('Hello World')"
+            d: "alert('Hello World');"
         },
         correctAnswer: "d"
     },
@@ -139,6 +141,7 @@ var quizQs = [{
 ];
 var score = 0
 localStorage.setItem("Score", score);
+
 var currentQuestion = 0
 
 
@@ -153,13 +156,13 @@ function quiz() {
     var op4 = document.querySelector("#op4");
 
     h2Question.textContent = quizQs[currentQuestion].question;
-    op1.innerHTML = "a) " + quizQs[currentQuestion].answers.a;
+    op1.textContent = "a) " + quizQs[currentQuestion].answers.a;
     op1.setAttribute("value", "a");
-    op2.innerHTML = "b) " + quizQs[currentQuestion].answers.b;
+    op2.textContent = "b) " + quizQs[currentQuestion].answers.b;
     op2.setAttribute("value", "b");
-    op3.innerHTML = "c) " + quizQs[currentQuestion].answers.c;
+    op3.textContent = "c) " + quizQs[currentQuestion].answers.c;
     op3.setAttribute("value", "c");
-    op4.innerHTML = "d) " + quizQs[currentQuestion].answers.d;
+    op4.textContent = "d) " + quizQs[currentQuestion].answers.d;
     op4.setAttribute("value", "d");
 }
 
@@ -170,7 +173,6 @@ var currentCorrectAnswer = "";
 function storeGuess(v) {
     var quizProgress = quizQs.length - 1;
     guessValue = v;
-    console.log(guessValue);
     checkAnswer();
     if (currentQuestion < quizProgress) {
         next();
@@ -218,9 +220,41 @@ function userScoreboard() {
     var userScore = localStorage.getItem("Score");
     userStats.score = userScore;
     recordScore.textContent = userScore + " out of " + quizQs.length;
+}
 
+
+
+function updateList() {
+    last3.push({ "Name": userStats.name, "Score": userStats.score, "Time": userStats.time });
+    localStorage.setItem("ScoreList", last3);
+    console.log(last3);
+    showScoreList();
 }
 
 function showScoreList() {
-    last5.push(userStats);
+    document.querySelector("#results").setAttribute("style", "display:none;")
+    document.querySelector("#scoreCard").setAttribute("style", "display: block;");
+    var user1 = document.querySelector("#user1");
+    var user2 = document.querySelector("#user2");
+    var user3 = document.querySelector("#user3");
+    localStorage.getItem("ScoreList ", last3);
+    user1.textContent = last3[0].Name + " | " + last3[0].Score + " | " + last3[0].Time + " seconds";
+    user2.textContent = last3[1].Name + " | " + last3[1].Score + " | " + last3[1].Time + " seconds";
+    user3.textContent = last3[2].Name + " | " + last3[2].Score + " | " + last3[2].Time + " seconds";
+}
+
+function startOver() {
+    var greetingBlock = document.querySelector("#greetingBlock")
+    var span = document.querySelector("#questSpan");
+    var glUser = document.querySelector("#glUser");
+    document.querySelector("#results").setAttribute("style", "display:none;")
+    document.querySelector("#scoreCard").setAttribute("style", "display: none;");
+    glUser.textContent = ""
+    document.querySelector("#input").value = "";
+    span.setAttribute("style", "display: none");
+    greetingBlock.setAttribute("style", "display:block;");
+    startTime = 500;
+    timerInterval = "";
+    currentQuestion = 0;
+
 }

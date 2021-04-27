@@ -140,20 +140,35 @@
         max-height: 300px;
     }
     
+    h3 {
+        text-align: center;
+    }
+    
     #scoreCard {
         display: none;
+        min-height: 12rem;
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         background-color: rgba(255, 255, 255, 0.5);
         border-radius: 2rem;
-        grid-row: 1;
         grid-column: 1/6;
+        max-height: 50%;
         box-shadow: 0 4px 2px -2px black;
     }
     
     #againBtn {
-        grid-column: 2/4;
-        grid-row: 5;
+        /* grid-column: 3/4; */
+        /* grid-row: 5; */
+        margin: 1rem 40% 1rem 40%;
         font-size: 1rem;
         font-weight: bold;
         background-color: firebrick;
+    }
+    
+    li {
+        list-style: none;
+        line-height: 1.5;
+    }
+    
+    #allDone {
+        align-self: center;
     }
