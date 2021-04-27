@@ -1,5 +1,21 @@
 // var questions = [
-
+/*
+    function checkAnswer() {
+        var correctAnswer = quizQs[currentQuestion].correctAnswer;
+    
+        console.log(correctAnswer)
+        document.querySelector(".op").addEventListener("click", event => {
+            var target = event.target.value;
+            console.log(target);
+            if (target.value == correctAnswer) {
+                score.value = score++;
+            } else {
+                timerElement.textContent = timerElement.value--
+            }
+            currentQuestion++;
+    
+        });
+    }*/
 
 //     "Inside which HTML element do we put the JavaScript?",
 //     "Where is the correct place to insert a JavaScript?",

@@ -1,20 +1,27 @@
 //Input User name and change the value of #input to reflect their response
 var nameBtn = document.querySelector("#nameBtn");
+var last5 = []
+var userStats = {
+    name: "",
+    score: "",
+    time: "",
+}
 
 //GreetingBlock Function just to log and store the user name and start quiz timer.
 function nameSubmit() {
+    // preventDefault()
     var greetingBlock = document.querySelector("#greetingBlock")
     var span = document.querySelector("#questSpan");
     var userName = document.querySelector("#input").value;
     var glUser = document.querySelector("#glUser");
-
     glUser.textContent = "Good luck, " + userName;
-
     span.setAttribute("style", "display: block;")
     greetingBlock.setAttribute("style", "display:none;");
+    userStats.name = userName
     quiz();
     //Invoke the timer function
     quizTime();
+    localStorage.setItem("Name", userStats.name);
 }
 nameBtn.addEventListener("click", nameSubmit);
 
@@ -22,24 +29,41 @@ nameBtn.addEventListener("click", nameSubmit);
 //Create timer variable to HTML elements for timer
 var timerElement = document.querySelector('.timer');
 var timerDiv = document.querySelector('#timerDiv');
-//Create the function
+var originalTimer = 500;
+var startTime = 500;
+var timeInterval = "";
+
+//Create the timer function
 function quizTime() {
-    var startTime = 60
     timerElement.textContent = startTime + " seconds left."
 
     //timerElement
-    var timeInterval = setInterval(function() {
+    timerInterval = setInterval(function() {
         if (startTime > 0) {
-            startTime--
+            startTime--;
             timerElement.textContent = startTime + " seconds left."
         } else {
             clearInterval(timeInterval)
             timerElement.textContent = "ALL DONE!!";
         }
-    }, 1000);
 
+    }, 1000);
+}
+var timeLeft = ""
+localStorage.setItem("Finished", timeLeft)
+
+function stopTimer() {
+    if (startTime !== 0) {
+        timerElement.textContent = "Completed."
+        clearInterval(timerInterval);
+        timeLeft = startTime;
+        //save this time to storage
+        localStorage.setItem("Finished", originalTimer - startTime);
+    };
+    startTime = 0
 
 }
+
 //Create questions Array
 var quizQs = [{
         question: "Inside which HTML element do we put the JavaScript?",
@@ -113,27 +137,90 @@ var quizQs = [{
     },
 
 ];
-
+var score = 0
+localStorage.setItem("Score", score);
 var currentQuestion = 0
 
+
+
+
 function quiz() {
+
     var h2Question = document.querySelector("#Question");
     var op1 = document.querySelector("#op1");
     var op2 = document.querySelector("#op2");
     var op3 = document.querySelector("#op3");
     var op4 = document.querySelector("#op4");
+
     h2Question.textContent = quizQs[currentQuestion].question;
     op1.innerHTML = "a) " + quizQs[currentQuestion].answers.a;
-    op1.setAttribute("value", quizQs[currentQuestion].answers.a);
+    op1.setAttribute("value", "a");
     op2.innerHTML = "b) " + quizQs[currentQuestion].answers.b;
-    op2.setAttribute("value", quizQs[currentQuestion].answers.b);
+    op2.setAttribute("value", "b");
     op3.innerHTML = "c) " + quizQs[currentQuestion].answers.c;
-    op3.setAttribute("value", quizQs[currentQuestion].answers.c);
+    op3.setAttribute("value", "c");
     op4.innerHTML = "d) " + quizQs[currentQuestion].answers.d;
-    op4.setAttribute("value", quizQs[currentQuestion].answers.d);
+    op4.setAttribute("value", "d");
+}
+
+var correctAnswer = quizQs[currentQuestion].correctAnswer;
+var guessValue = "";
+var currentCorrectAnswer = "";
+
+function storeGuess(v) {
+    var quizProgress = quizQs.length - 1;
+    guessValue = v;
+    console.log(guessValue);
+    checkAnswer();
+    if (currentQuestion < quizProgress) {
+        next();
+    } else {
+
+        userScoreboard();
+    };
+}
+
+function checkAnswer() {
+    currentCorrectAnswer = quizQs[currentQuestion].correctAnswer;
+    if (guessValue === currentCorrectAnswer) {
+        score++;
+        localStorage.setItem("Score", score);
+
+    } else {
+        startTime = startTime -= 5;
+        timerElement.textContent = startTime + " seconds left.";
+    };
 
 }
 
-function userAnswer() {
+function next() {
+    currentQuestion++;
+    quiz();
+}
 
+var recordScore = document.querySelector("#score");
+var recordTime = document.querySelector("#timeSpent");
+
+
+function userScoreboard() {
+    //stop timer and display
+    stopTimer();
+    //Get rid of Questions Block
+    var span = document.querySelector("#questSpan");
+    span.setAttribute("style", "display: none;")
+        //Show ScoreBoard 
+    var results = document.querySelector("#results");
+    results.setAttribute("style", "display:block;")
+    var timeSpent = localStorage.getItem("Finished")
+    userStats.time = timeSpent;
+    recordTime.textContent = timeSpent + " seconds!";
+
+    var userScore = localStorage.getItem("Score");
+    userStats.score = userScore;
+    recordScore.textContent = userScore + " out of " + quizQs.length;
+
+}
+
+function showScoreList() {
+    last5.push(userStats);
 }

@@ -32,17 +32,38 @@
             <span id="questSpan">
                 <h2 id="Question"></h2>
                 <form id="multipleChoice">
-                    <button id="op1"></button> 
-                    <button id="op2"></button>
-                    <button id="op3"></button>
-                    <button id="op4"></button>
+                    <button class="op" onclick="storeGuess(this.value)" type="button" id="op1"></button>
+                    <br> 
+                    <button class="op" onclick="storeGuess(this.value)" type="button" id="op2"></button>
+                    <br>
+                    <button class="op" onclick="storeGuess(this.value)" type="button" id="op3"></button>
+                    <br>
+                    <button class="op" onclick="storeGuess(this.value)" type="button" id="op4"></button>
                     
                 </form>
-            
             </span>
             <div id="results">
-
+                <dl>
+                    <dt>Questions Answered Correctly:</dt>
+                    <dd id="score"></dd>
+                    <br>
+                    <dt>Time Spent On Quiz: </dt>
+                    <dd id="timeSpent"></dd>
+                </dl>
+                <button id="allDone" onclick="showScoreList()">Show Recent Scores</button>
             </div>
+            <section id="scoreboard">
+                <div id="scoreCard">
+                    <h3>Scoreboard</h3>
+                    <object id="user1"></object>
+                    <object id="user2"></object>
+                    <object id="user3"></object>
+                    <object id="user4"></object>
+                    <object id="user5"></object>
+                    <button id="againBtn" onclick="startOver()">Try Again?</button>
+                </div>
+
+            </section>
         </section>
     </main>
 
