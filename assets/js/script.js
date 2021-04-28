@@ -22,6 +22,7 @@ function nameSubmit() {
     //Invoke the timer function
     quizTime();
     localStorage.setItem("Name", userStats.name);
+    startTime = 500;
 }
 nameBtn.addEventListener("click", nameSubmit);
 
@@ -32,11 +33,10 @@ var timerDiv = document.querySelector('#timerDiv');
 var originalTimer = 500;
 var startTime = 500;
 var timeInterval = "";
-var x = 0
 
 //Create the timer function
 function quizTime() {
-    x = 1000;
+
     // timerElement.textContent = startTime + " seconds left."
 
     //timerElement
@@ -49,7 +49,7 @@ function quizTime() {
             timerElement.textContent = "ALL DONE!!";
         }
 
-    }, x);
+    }, 1000);
 }
 var timeLeft = ""
 localStorage.setItem("Finished", timeLeft)
@@ -141,12 +141,11 @@ var quizQs = [{
 ];
 var score = 0
 localStorage.setItem("Score", score);
-
 var currentQuestion = 0
 
 
 
-
+//Generate Text 
 function quiz() {
 
     var h2Question = document.querySelector("#Question");
@@ -165,11 +164,12 @@ function quiz() {
     op4.textContent = "d) " + quizQs[currentQuestion].answers.d;
     op4.setAttribute("value", "d");
 }
-
+//Begin Checking Answer Process
 var correctAnswer = quizQs[currentQuestion].correctAnswer;
 var guessValue = "";
 var currentCorrectAnswer = "";
 
+//Crosscheck value on button click against Correct Answer
 function storeGuess(v) {
     var quizProgress = quizQs.length - 1;
     guessValue = v;
@@ -185,8 +185,8 @@ function storeGuess(v) {
 function checkAnswer() {
     currentCorrectAnswer = quizQs[currentQuestion].correctAnswer;
     if (guessValue === currentCorrectAnswer) {
-        score++;
-        localStorage.setItem("Score", score);
+        userStats.score++;
+        localStorage.setItem("Score", userStats.score);
 
     } else {
         startTime = startTime -= 5;
@@ -253,8 +253,8 @@ function startOver() {
     document.querySelector("#input").value = "";
     span.setAttribute("style", "display: none");
     greetingBlock.setAttribute("style", "display:block;");
-    startTime = 500;
-    timerInterval = "";
+    userStats.score = 0;
+    timerInterval = 0;
     currentQuestion = 0;
 
 }
