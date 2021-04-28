@@ -72,7 +72,7 @@ var quizQs = [{
         answers: {
             a: "body",
             b: "head",
-            c: "body and head are both accpetable",
+            c: "body and head are both acceptable",
             d: "div"
         },
         correctAnswer: "c"
@@ -81,8 +81,8 @@ var quizQs = [{
         question: "Where is the correct place to insert a JavaScript?",
         answers: {
             a: "<script src='script.js'></script>",
-            b: "<link rel='script' href='script.js'>",
-            c: "<meta name='script' src='script.js'><script> ",
+            b: "<link rel='script' href='script.js'/>",
+            c: "<meta name='script' src='script.js'/><> ",
             d: "You don't insert a Javascript-- it just is."
         },
         correctAnswer: "a"
@@ -134,6 +134,76 @@ var quizQs = [{
             b: "var colors = [red white blue]",
             c: "var colors = ['red', 'white','blue']",
             d: "var colors = {1-red, 2-white, 3-blue}",
+        },
+        correctAnswer: "c"
+    },
+    {
+        question: "JavaScript is a ___ -side programming language.",
+        answers: {
+            a: "Client",
+            b: "Server",
+            c: "Both",
+            d: "None",
+        },
+        correctAnswer: "c"
+    },
+    {
+        question: "How do you find the minimum of x and y using JavaScript?",
+        answers: {
+            a: "min(x,y);",
+            b: "Math.min(x,y)",
+            c: "Math.min(xy)",
+            d: "min(xy);",
+        },
+        correctAnswer: "b"
+    },
+    {
+        question: "What will the code return?",
+        answers: {
+            a: "true",
+            b: "false",
+            c: "NaN",
+            d: "SyntaxError",
+        },
+        correctAnswer: "a"
+    },
+    {
+        question: "Determine the result – String(“Hello”) === “Hello”;",
+        answers: {
+            a: "true",
+            b: "false",
+            c: "SyntaxError",
+            d: "ReferenceError",
+        },
+        correctAnswer: "a"
+    },
+    {
+        question: "What is the correct JavaScript syntax to print “Javascript” in the console?",
+        answers: {
+            a: "print(“Javascript”);",
+            b: "console.print(“Javascript”); ",
+            c: "log.console(“Javascript”);",
+            d: "console.log(“Javascript”);",
+        },
+        correctAnswer: "d"
+    },
+    {
+        question: "Which of the following print content on the browser window?",
+        answers: {
+            a: "document.write(“print content”);",
+            b: "response.write(“print content”);",
+            c: "document.write(print content);",
+            d: "write(“print content”).please;",
+        },
+        correctAnswer: "a"
+    },
+    {
+        question: "Which of the following is an event listener in JavaScript?",
+        answers: {
+            a: "onclick",
+            b: "blur",
+            c: "click",
+            d: "Click()",
         },
         correctAnswer: "c"
     },
