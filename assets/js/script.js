@@ -32,7 +32,7 @@ function nameSubmit() {
     //Store username to Local Storage -- may be redundant possible refactor deletion.
     localStorage.setItem("Name", userStats.name);
     //Set startTime to allocated time
-    startTime = 500;
+    startTime = 300;
 }
 //Add listener event 'click' to HTML nameBtn
 nameBtn.addEventListener("click", nameSubmit);
@@ -42,8 +42,8 @@ nameBtn.addEventListener("click", nameSubmit);
 var timerElement = document.querySelector('.timer');
 var timerDiv = document.querySelector('#timerDiv');
 //Declare global variables for use calculating time results & setting and resetting timer
-var originalTimer = 500;
-var startTime = 500;
+var originalTimer = 300;
+var startTime = 300;
 var timeInterval = "";
 
 //Create the timer function
@@ -175,7 +175,7 @@ var quizQs = [{
         correctAnswer: "b"
     },
     {
-        question: "What will the code return?",
+        question: "What will Boolean(3<7) return?",
         answers: {
             a: "true",
             b: "false",
@@ -224,6 +224,16 @@ var quizQs = [{
         },
         correctAnswer: "c"
     },
+    {
+        question: "Which of the given options is an incorrect variable name?",
+        answers: {
+            a: "javascript",
+            b: "_javascript",
+            c: "$javascript",
+            d: "-javascript",
+        },
+        correctAnswer: "d"
+    }
 
 ];
 
