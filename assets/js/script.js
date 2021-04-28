@@ -1,6 +1,9 @@
-//Input User name and change the value of #input to reflect their response
+//Initial global variables declared to start creating code quiz
+//Set global JS variable for nameBtn linking to HTML element with that ID  
 var nameBtn = document.querySelector("#nameBtn");
+//Declare last3 as array to collect the data from the last three contestants.
 var last3 = [];
+//Create global variable for object to be pushed to last3 array once populated.
 var userStats = {
     name: "",
     score: "",
@@ -9,27 +12,36 @@ var userStats = {
 
 //GreetingBlock Function just to log and store the user name and start quiz timer.
 function nameSubmit() {
-    // preventDefault()
+    //Set local variables linking HTML elements for greeting block.
     var greetingBlock = document.querySelector("#greetingBlock")
     var span = document.querySelector("#questSpan");
     var userName = document.querySelector("#input").value;
     var glUser = document.querySelector("#glUser");
+    //Provide user with moral support
     glUser.textContent = "Good luck, " + userName;
+    //Display the quiz
     span.setAttribute("style", "display: block;");
+    //Hide the greeting block
     greetingBlock.setAttribute("style", "display:none;");
+    //Commit the user input to the userStats object as name
     userStats.name = userName
+        //Invoke the quiz function.
     quiz();
     //Invoke the timer function
     quizTime();
+    //Store username to Local Storage -- may be redundant possible refactor deletion.
     localStorage.setItem("Name", userStats.name);
+    //Set startTime to allocated time
     startTime = 500;
 }
+//Add listener event 'click' to HTML nameBtn
 nameBtn.addEventListener("click", nameSubmit);
 
 
-//Create timer variable to HTML elements for timer
+//Create JS variables linking HTML elements for timer
 var timerElement = document.querySelector('.timer');
 var timerDiv = document.querySelector('#timerDiv');
+//Declare global variables for use calculating time results & setting and resetting timer
 var originalTimer = 500;
 var startTime = 500;
 var timeInterval = "";
@@ -51,17 +63,22 @@ function quizTime() {
 
     }, 1000);
 }
-var timeLeft = ""
+//Set time left as global variable of empty string
+var timeLeft = "";
+//Create localStorage item for storing time results.
 localStorage.setItem("Finished", timeLeft)
 
+//Stop timer and capture time of quiz completion.
 function stopTimer() {
     if (startTime !== 0) {
         timerElement.textContent = "Completed."
         clearInterval(timerInterval);
         timeLeft = startTime;
-        //save this time to storage
+        //Compare originalTimer against current state of startTime.
+        //Save this time to storage
         localStorage.setItem("Finished", originalTimer - startTime);
     };
+    //Zero out timer
     startTime = 0;
 
 }
@@ -209,11 +226,12 @@ var quizQs = [{
     },
 
 ];
+
+//Define score as a Global variable to keep track through the different functions.
 var score = 0
 localStorage.setItem("Score", score);
+//Globally set the currentQuestion variable to 0 so quiz always begins at the first question
 var currentQuestion = 0
-
-
 
 //Generate Text 
 function quiz() {
@@ -234,12 +252,15 @@ function quiz() {
     op4.textContent = "d) " + quizQs[currentQuestion].answers.d;
     op4.setAttribute("value", "d");
 }
-//Begin Checking Answer Process
+//Begin Checking Answer Process.
 var correctAnswer = quizQs[currentQuestion].correctAnswer;
+//Set JS variable for value collected on button click. 
+//onclick="storeGuess(this.value)" in HTML, for use in StoreGuess function.
 var guessValue = "";
+//Set global variable for the correct answer, used in multiple functions.
 var currentCorrectAnswer = "";
 
-//Crosscheck value on button click against Correct Answer
+//Crosscheck value on button click against Correct Answer.
 function storeGuess(v) {
     var quizProgress = quizQs.length - 1;
     guessValue = v;
@@ -251,7 +272,8 @@ function storeGuess(v) {
         userScoreboard();
     };
 }
-
+/*React appropriately when the answer is checked against the answer key
+add 1 to Score or deduct 5 seconds from time.*/
 function checkAnswer() {
     currentCorrectAnswer = quizQs[currentQuestion].correctAnswer;
     if (guessValue === currentCorrectAnswer) {
@@ -264,67 +286,87 @@ function checkAnswer() {
     };
 
 }
-
+//Loop back to the quiz function to pull the next question.
 function next() {
     currentQuestion++;
     quiz();
 }
-
+//Declare score and time as variables for the appropriate HTML elements.
 var recordScore = document.querySelector("#score");
 var recordTime = document.querySelector("#timeSpent");
 
-
+//Function for manipulating HTML appropriately upon finishing the quiz.
 function userScoreboard() {
     //stop timer and display
     stopTimer();
     //Get rid of Questions Block
     var span = document.querySelector("#questSpan");
-    span.setAttribute("style", "display: none;")
-        //Show ScoreBoard 
+    span.setAttribute("style", "display: none;");
+    //Show ScoreBoard 
     var results = document.querySelector("#results");
-    results.setAttribute("style", "display:block;")
-    var timeSpent = localStorage.getItem("Finished")
+    results.setAttribute("style", "display:block;");
+    //Collect and calculate time spent on quiz
+    var timeSpent = localStorage.getItem("Finished");
     userStats.time = timeSpent;
+    //Display result of timeSpent in HTML
     recordTime.textContent = timeSpent + " seconds!";
-
+    //Collect and calculate score for correct answers on quiz
     var userScore = localStorage.getItem("Score");
     userStats.score = userScore;
+    //Display result of score in HTML
     recordScore.textContent = userScore + " out of " + quizQs.length;
 }
 
-
-
+//Update the scoreboard for recent users.
 function updateList() {
+    //Push current user info to the last3 array
     last3.push({ "Name": userStats.name, "Score": userStats.score, "Time": userStats.time });
+    //Set updated last3 array as the localStorage "ScoreList"
     localStorage.setItem("ScoreList", last3);
+    //Verify correct data
     console.log(last3);
+    //Invoke subsequent function
     showScoreList();
 }
-
+//Manipulate HTML to properly display the updated ScoreList.
 function showScoreList() {
+    //Hide personal results
     document.querySelector("#results").setAttribute("style", "display:none;")
+        //Show ScoreCard
     document.querySelector("#scoreCard").setAttribute("style", "display: block;");
+    //Set variables for HTML list items
     var user1 = document.querySelector("#user1");
     var user2 = document.querySelector("#user2");
     var user3 = document.querySelector("#user3");
+    //Retrieve last3 array info from localStorage
     localStorage.getItem("ScoreList ", last3);
+    //Populate List Items with appropriate info
     user1.textContent = last3[0].Name + " | " + last3[0].Score + " | " + last3[0].Time + " seconds";
     user2.textContent = last3[1].Name + " | " + last3[1].Score + " | " + last3[1].Time + " seconds";
     user3.textContent = last3[2].Name + " | " + last3[2].Score + " | " + last3[2].Time + " seconds";
 }
-
+//Reset necessary elements and variables to launch the quiz subsequent times.
 function startOver() {
+    //Set local variables from the initial instance of the quiz
     var greetingBlock = document.querySelector("#greetingBlock")
     var span = document.querySelector("#questSpan");
     var glUser = document.querySelector("#glUser");
+    //Hide HTML elements for personal score card and recent users leaderboard. 
     document.querySelector("#results").setAttribute("style", "display:none;")
     document.querySelector("#scoreCard").setAttribute("style", "display: none;");
+    //Reset content of Goodluck block
     glUser.textContent = ""
+        //Clear the username input field.
     document.querySelector("#input").value = "";
+    //Make sure the questions section is hidden at initial onset
     span.setAttribute("style", "display: none");
+    //Show username input div
     greetingBlock.setAttribute("style", "display:block;");
+    //Reset js stats to zero for new user.
     userStats.score = 0;
+    //Make sure timer doesn't start running until called in nameSubmit().
     timerInterval = 0;
+    //Start quiz from index 0 of quizQs array.
     currentQuestion = 0;
 
 }
