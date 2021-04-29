@@ -67,7 +67,6 @@ function quizTime() {
             startTime--;
         } else if (timerElement.textContent = "All Done!!" && currentQuestion <= 14) {
             clearInterval(timeInterval);
-            alert("Sorry you ran out of time. Please try again.");
             didNotFinish();
         } else {
             clearInterval(timeInterval);
@@ -412,6 +411,7 @@ function startOver() {
 }
 
 function didNotFinish() {
+    alert("Sorry you ran out of time. Please try again.");
     startTime = 240000;
     //Hide personal results
     document.querySelector("#results").setAttribute("style", "display:none;");

@@ -1,6 +1,5 @@
 <ol>
-<li>If user runs out of time, skip to showresults()</li>
-    <li>Worst case scenario, just erase didNotFinish()</li>
+<li>Modify CSS to fix what quiz questions look like on mobile (less than 400px)</li>
 </ol>
 
 <h3> This fixes the 2second count down thing</h3>
@@ -37,3 +36,4 @@
 
     </code>
 </div>
+
