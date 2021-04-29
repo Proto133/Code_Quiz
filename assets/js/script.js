@@ -17,7 +17,6 @@ var divUID = document.querySelector("#divUID");
 var timerDiv = document.querySelector("#timerDiv");
 var input = document.querySelector("#input");
 
-
 //GreetingBlock Function just to log and store the user name and start quiz timer.
 function nameSubmit() {
     //Set local variables linking HTML elements for greeting block.
@@ -54,26 +53,25 @@ var timerElement = document.querySelector('.timer');
 //Declare global variables for use calculating time results & setting and resetting timer
 var originalTimer = 240;
 var startTime = 240;
-var timeInterval = "";
+var timeInterval;
 
-//Create the timer function
+
 function quizTime() {
-    //stylize timerDiv
-    timerDiv.setAttribute('style', 'display:block; box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.67);');
-    //stylize glUser ptag
-    divUID.setAttribute('style', 'display:block; box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.67);');
 
-    timerElement.textContent = startTime + " seconds left."
+    // timerElement.textContent = startTime + " seconds left.";
 
     //timerElement
     timerInterval = setInterval(function() {
+        timerElement.textContent = startTime + " seconds left.";
         if (startTime > 0) {
             startTime--;
-            timerElement.textContent = startTime + " seconds left."
+        } else if (timerElement.textContent = "All Done!!" && currentQuestion <= 14) {
+            clearInterval(timeInterval);
+            alert("Sorry you ran out of time. Please try again.");
+            didNotFinish();
         } else {
             clearInterval(timeInterval);
             timerElement.textContent = "ALL DONE!!";
-            didNotFinish();
         }
 
     }, 1000);
@@ -260,15 +258,21 @@ var currentQuestion = 0
 
 //Generate Text 
 function quiz() {
+    //stylize timerDiv
+    timerDiv.setAttribute('style', 'display:block; box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.67);');
+    //stylize glUser ptag
+    divUID.setAttribute('style', 'display:block; box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.67);');
 
+    // Set local variables for HTML elements
     var h2Question = document.querySelector("#Question");
     var op1 = document.querySelector("#op1");
     var op2 = document.querySelector("#op2");
     var op3 = document.querySelector("#op3");
     var op4 = document.querySelector("#op4");
-
+    //Display correct questions and answer choices
     h2Question.textContent = quizQs[currentQuestion].question;
     op1.textContent = "a) " + quizQs[currentQuestion].answers.a;
+    //Set the value of each button onclick.
     op1.setAttribute("value", "a");
     op2.textContent = "b) " + quizQs[currentQuestion].answers.b;
     op2.setAttribute("value", "b");
