@@ -203,7 +203,7 @@ h3 {
 
 #againBtn {
     grid-column: 1;
-    margin: 0 20% 0 20%;
+    margin: 0 35% 0 40%;
     grid-row: 3;
     font-size: 1rem;
     font-weight: bold;
