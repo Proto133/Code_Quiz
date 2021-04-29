@@ -9,6 +9,13 @@ var userStats = {
     score: "",
     time: "",
 };
+
+//Adding  a initialization function to crosscheck whether a function has been fired for if statements
+function initFunction() {
+    console.log("initFunction fired");
+    checkComplete.prototype.fired = false
+}
+initFunction();
 //Set global variable for good luck user p tag
 var glUser = document.querySelector("#glUser");
 
@@ -19,6 +26,7 @@ var input = document.querySelector("#input");
 
 //GreetingBlock Function just to log and store the user name and start quiz timer.
 function nameSubmit() {
+    console.log("nameSubmit fired");
     //Set local variables linking HTML elements for greeting block.
     var greetingBlock = document.querySelector("#greetingBlock")
     var span = document.querySelector("#questSpan");
@@ -50,50 +58,56 @@ nameBtn.addEventListener("click", nameSubmit);
 var timerElement = document.querySelector('.timer');
 
 
-//Declare global variables for use calculating time results & setting and resetting timer
+//Declare global variables for use calculating time#results & setting and resetting timer
 var originalTimer = 240;
 var startTime = 240;
 var timeInterval;
-
+var timesUp = 0;
 
 function quizTime() {
-
-    // timerElement.textContent = startTime + " seconds left.";
-
+    console.log("quizTime fired");
+    quizTime.fired = true;
     //timerElement
     timerInterval = setInterval(function() {
         timerElement.textContent = startTime + " seconds left.";
         if (startTime > 0) {
-            startTime--;
-        } else if (timerElement.textContent = "All Done!!" && currentQuestion <= 14) {
-            clearInterval(timeInterval);
-            didNotFinish();
+            startTime--
         } else {
+            checkComplete();
             clearInterval(timeInterval);
-            timerElement.textContent = "ALL DONE!!";
+
         }
 
     }, 1000);
 }
-//Set time left as global variable of empty string
-var timeLeft = "";
-//Create localStorage item for storing time results.
-localStorage.setItem("Finished", timeLeft)
 
+function checkComplete() {
+    if (checkComplete.fired != true && userScoreboard.fired != true) {
+        console.log("checkComplete fired")
+        didNotFinish();
+        return checkComplete.fired = true;
+    }
+
+}
 //Stop timer and capture time of quiz completion.
 function stopTimer() {
-    if (startTime !== 0) {
+    console.log("stopTimer fired");
+    stopTimer.fired = true;
+    if (startTime > 0) {
         timerElement.textContent = "Completed."
         clearInterval(timerInterval);
-        timeLeft = startTime;
-        //Compare originalTimer against current state of startTime.
+        //Compare originalTimer against current state of startTime and stores time in userStats
+        //Commit the user input to the userStats object as name
+        userTime = originalTimer - startTime;
         //Save this time to storage
-        localStorage.setItem("Finished", originalTimer - startTime);
+        localStorage.setItem("Time", userTime);
     };
     //Zero out timer
     startTime = 0;
 
 }
+
+
 
 //Create questions Array
 var quizQs = [{
@@ -257,6 +271,7 @@ var currentQuestion = 0
 
 //Generate Text 
 function quiz() {
+    console.log("quiz fired");
     //stylize timerDiv
     timerDiv.setAttribute('style', 'display:block; box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.67);');
     //stylize glUser ptag
@@ -290,19 +305,23 @@ var currentCorrectAnswer = "";
 
 //Crosscheck value on button click against Correct Answer.
 function storeGuess(v) {
+    console.log("storeGuess fired.");
     var quizProgress = quizQs.length - 1;
     guessValue = v;
     checkAnswer();
     if (currentQuestion < quizProgress) {
         next();
     } else {
-
         userScoreboard();
+        //stop timer and display
+        stopTimer();
     };
 }
 /*React appropriately when the answer is checked against the answer key
 add 1 to Score or deduct 5 seconds from time.*/
 function checkAnswer() {
+    console.log("checkAnswer Fired");
+    checkAnswer.fired = true;
     currentCorrectAnswer = quizQs[currentQuestion].correctAnswer;
     if (guessValue === currentCorrectAnswer) {
         userStats.score++;
@@ -325,8 +344,7 @@ var recordTime = document.querySelector("#timeSpent");
 
 //Function for manipulating HTML appropriately upon finishing the quiz.
 function userScoreboard() {
-    //stop timer and display
-    stopTimer();
+    console.log("userScoreboard fired.");
     //Get rid of Questions Block
     var span = document.querySelector("#questSpan");
     span.setAttribute("style", "display: none;");
@@ -334,19 +352,23 @@ function userScoreboard() {
     var results = document.querySelector("#results");
     results.setAttribute("style", "display:block;");
     //Collect and calculate time spent on quiz
-    var timeSpent = localStorage.getItem("Finished");
-    userStats.time = timeSpent;
+    userTime = localStorage.getItem("Time");
+    userStats.time = userTime;
     //Display result of timeSpent in HTML
-    recordTime.textContent = timeSpent + " seconds!";
+    recordTime.textContent = userTime + " seconds!";
     //Collect and calculate score for correct answers on quiz
     var userScore = localStorage.getItem("Score");
     userStats.score = userScore;
     //Display result of score in HTML
     recordScore.textContent = userScore + " out of " + quizQs.length;
+    return userScoreboard.fired = true;
 }
 
 //Update the scoreboard for recent users.
 function updateList() {
+    console.log("updateList fired.");
+    //Hide personal results
+    document.querySelector("#results").setAttribute("style", "display:none;");
     //Push current user info to  0 index of the last3 array so that you can always see the last 3.
     last3.unshift({ "Name": userStats.name, "Score": userStats.score, "Time": userStats.time });
     //Set updated last3 array as the localStorage "ScoreList"
@@ -358,21 +380,21 @@ function updateList() {
 }
 //Manipulate HTML to properly display the updated ScoreList.
 function showScoreList() {
+    console.log("showScoreList fired.");
     //Clear timerElement textContent in HTML
     timerElement.textContent = "";
-
-    //Hide personal results
-    document.querySelector("#results").setAttribute("style", "display:none;");
     document.querySelector("#timerDiv").setAttribute("style", "display:none;");
     document.querySelector("#divUID").setAttribute("style", "display:none;");
     //Show ScoreCard
     document.querySelector("#scoreCard").setAttribute("style", "display: block;");
+    document.querySelector("#results").setAttribute("style", "display:none;");
     //Set variables for HTML list items
     var user1 = document.querySelector("#user1");
     var user2 = document.querySelector("#user2");
     var user3 = document.querySelector("#user3");
     //Retrieve last3 array info from localStorage
     localStorage.getItem("ScoreList ", last3);
+
     //Populate List Items with appropriate info
     user1.textContent = last3[0].Name + " | " + last3[0].Score + " | " + last3[0].Time + " seconds";
     user2.textContent = last3[1].Name + " | " + last3[1].Score + " | " + last3[1].Time + " seconds";
@@ -380,6 +402,11 @@ function showScoreList() {
 }
 //Reset necessary elements and variables to launch the quiz subsequent times.
 function startOver() {
+    console.log("startOver fired");
+    startOver.fired = true;
+    //Hide HTML elements for personal score card and recent users leaderboard. 
+    document.querySelector("#results").setAttribute("style", "display:none;");
+    document.querySelector('dl').setAttribute("style", "display:none;");
     //Hide HTML scoreCard Element
     document.querySelector("#scoreCard").setAttribute("style", "display: none;");
     //Set local variables from the initial instance of the quiz
@@ -390,58 +417,54 @@ function startOver() {
     //Reset content of Goodluck block
     var glUser = document.querySelector("#glUser");
     glUser.textContent = "";
-
-
     var span = document.querySelector("#questSpan");
-
-    //Hide HTML elements for personal score card and recent users leaderboard. 
-    document.querySelector("#results").setAttribute("style", "display:none;");
-
-
     //Make sure the questions section is hidden at initial onset
     span.setAttribute("style", "display: none");
 
     //Reset js stats to zero for new user.
     userStats.score = 0;
+    userStats.time = 0;
     //Make sure timer doesn't start running until called in nameSubmit().
     timerInterval = 0;
     //Start quiz from index 0 of quizQs array.
     currentQuestion = 0;
 
 }
+var runningIndex = last3.length - 1;
 
 function didNotFinish() {
-    alert("Sorry you ran out of time. Please try again.");
-    startTime = 240000;
-    //Hide personal results
-    document.querySelector("#results").setAttribute("style", "display:none;");
-    document.querySelector("#timerDiv").setAttribute("style", "display:none;");
-    document.querySelector("#divUID").setAttribute("style", "display:none;");
-    //Hide HTML scoreCard Element
-    document.querySelector("#scoreCard").setAttribute("style", "display: none;");
-    //Set local variables from the initial instance of the quiz
-    var greetingBlock = document.querySelector("#greetingBlock");
-    //Show username input div
-    greetingBlock.setAttribute("style", "display:block;");
-    input.value = "";
-    //Reset content of Goodluck block
-    var glUser = document.querySelector("#glUser");
-    glUser.textContent = "";
+    console.log("didNotFinish fired.");
+    didNotFinish.fired = true;
+    if (userScoreboard.fired != true) {
+        startTime = 240000;
+        alert("Sorry you ran out of time. Please try again.");
+        //Hide personal results
+        document.querySelector("#results").setAttribute("style", "display:none;");
+        document.querySelector("#timerDiv").setAttribute("style", "display:none;");
+        document.querySelector("#divUID").setAttribute("style", "display:none;");
+        //Hide HTML scoreCard Element
+        document.querySelector("#scoreCard").setAttribute("style", "display: none;");
+        //Set local variables from the initial instance of the quiz
+        var greetingBlock = document.querySelector("#greetingBlock");
+        //Show username input div
+        greetingBlock.setAttribute("style", "display:block;");
+        input.value = "";
+        //Reset content of Goodluck block
+        var glUser = document.querySelector("#glUser");
+        glUser.textContent = "";
+        var span = document.querySelector("#questSpan");
+        //Make sure the questions section is hidden at initial onset
+        span.setAttribute("style", "display: none");
 
-
-    var span = document.querySelector("#questSpan");
-
-    //Hide HTML elements for personal score card and recent users leaderboard. 
-    document.querySelector("#results").setAttribute("style", "display:none;");
-
-
-    //Make sure the questions section is hidden at initial onset
-    span.setAttribute("style", "display: none");
-
-    //Reset js stats to zero for new user.
-    userStats.score = 0;
-    //Make sure timer doesn't start running until called in nameSubmit().
-    timerInterval = 0;
-    //Start quiz from index 0 of quizQs array.
-    currentQuestion = 0;
+        //Reset js stats to zero for new user.
+        userStats.score = 0;
+        userStats.time = 0;
+        last3.splice(index, runningIndex)
+            //Make sure timer doesn't start running until called in nameSubmit().
+        timerInterval = 0;
+        //Start quiz from index 0 of quizQs array.
+        currentQuestion = 0;
+        //Inform them that they failed.
+    };
+    // initFunction();
 }
