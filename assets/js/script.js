@@ -71,8 +71,9 @@ function quizTime() {
             startTime--;
             timerElement.textContent = startTime + " seconds left."
         } else {
-            clearInterval(timeInterval)
+            clearInterval(timeInterval);
             timerElement.textContent = "ALL DONE!!";
+            didNotFinish();
         }
 
     }, 1000);
@@ -404,4 +405,39 @@ function startOver() {
     //Start quiz from index 0 of quizQs array.
     currentQuestion = 0;
 
+}
+
+function didNotFinish() {
+    startTime = 240000;
+    //Hide personal results
+    document.querySelector("#results").setAttribute("style", "display:none;");
+    document.querySelector("#timerDiv").setAttribute("style", "display:none;");
+    document.querySelector("#divUID").setAttribute("style", "display:none;");
+    //Hide HTML scoreCard Element
+    document.querySelector("#scoreCard").setAttribute("style", "display: none;");
+    //Set local variables from the initial instance of the quiz
+    var greetingBlock = document.querySelector("#greetingBlock");
+    //Show username input div
+    greetingBlock.setAttribute("style", "display:block;");
+    input.value = "";
+    //Reset content of Goodluck block
+    var glUser = document.querySelector("#glUser");
+    glUser.textContent = "";
+
+
+    var span = document.querySelector("#questSpan");
+
+    //Hide HTML elements for personal score card and recent users leaderboard. 
+    document.querySelector("#results").setAttribute("style", "display:none;");
+
+
+    //Make sure the questions section is hidden at initial onset
+    span.setAttribute("style", "display: none");
+
+    //Reset js stats to zero for new user.
+    userStats.score = 0;
+    //Make sure timer doesn't start running until called in nameSubmit().
+    timerInterval = 0;
+    //Start quiz from index 0 of quizQs array.
+    currentQuestion = 0;
 }
