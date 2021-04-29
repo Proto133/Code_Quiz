@@ -15,6 +15,7 @@ var glUser = document.querySelector("#glUser");
 //Set global variable for divUID
 var divUID = document.querySelector("#divUID");
 var timerDiv = document.querySelector("#timerDiv");
+var input = document.querySelector("#input");
 
 
 //GreetingBlock Function just to log and store the user name and start quiz timer.
@@ -40,6 +41,7 @@ function nameSubmit() {
     //Set startTime to allocated time
     startTime = 240;
 
+
 }
 //Add listener event 'click' to HTML nameBtn
 nameBtn.addEventListener("click", nameSubmit);
@@ -47,7 +49,7 @@ nameBtn.addEventListener("click", nameSubmit);
 
 //Create JS variables linking HTML elements for timer
 var timerElement = document.querySelector('.timer');
-// var timerDiv = document.querySelector('#timerDiv');
+
 
 //Declare global variables for use calculating time results & setting and resetting timer
 var originalTimer = 240;
@@ -61,7 +63,7 @@ function quizTime() {
     //stylize glUser ptag
     divUID.setAttribute('style', 'display:block; box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.67);');
 
-    // timerElement.textContent = startTime + " seconds left."
+    timerElement.textContent = startTime + " seconds left."
 
     //timerElement
     timerInterval = setInterval(function() {
@@ -341,8 +343,8 @@ function userScoreboard() {
 
 //Update the scoreboard for recent users.
 function updateList() {
-    //Push current user info to the last3 array
-    last3.push({ "Name": userStats.name, "Score": userStats.score, "Time": userStats.time });
+    //Push current user info to  0 index of the last3 array so that you can always see the last 3.
+    last3.unshift({ "Name": userStats.name, "Score": userStats.score, "Time": userStats.time });
     //Set updated last3 array as the localStorage "ScoreList"
     localStorage.setItem("ScoreList", last3);
     //Verify correct data
@@ -352,12 +354,14 @@ function updateList() {
 }
 //Manipulate HTML to properly display the updated ScoreList.
 function showScoreList() {
-    //Clear timerDiv textContent in HTML
-    timerDiv.textContent = ""
-    timerDiv.setAttribute('style', ';')
-        //Hide personal results
-    document.querySelector("#results").setAttribute("style", "display:none;")
-        //Show ScoreCard
+    //Clear timerElement textContent in HTML
+    timerElement.textContent = "";
+
+    //Hide personal results
+    document.querySelector("#results").setAttribute("style", "display:none;");
+    document.querySelector("#timerDiv").setAttribute("style", "display:none;");
+    document.querySelector("#divUID").setAttribute("style", "display:none;");
+    //Show ScoreCard
     document.querySelector("#scoreCard").setAttribute("style", "display: block;");
     //Set variables for HTML list items
     var user1 = document.querySelector("#user1");
@@ -372,23 +376,27 @@ function showScoreList() {
 }
 //Reset necessary elements and variables to launch the quiz subsequent times.
 function startOver() {
-    //Set local variables from the initial instance of the quiz
-    var greetingBlock = document.querySelector("#greetingBlock")
-    var span = document.querySelector("#questSpan");
-    var glUser = document.querySelector("#glUser");
-    //Hide HTML elements for personal score card and recent users leaderboard. 
-    document.querySelector("#results").setAttribute("style", "display:none;")
+    //Hide HTML scoreCard Element
     document.querySelector("#scoreCard").setAttribute("style", "display: none;");
-    document.querySelector("#divTimer").setAttribute("style", "display:none;");
-    document.querySelector("#divUID").setAttribute("style", "display:none;");
-    //Reset content of Goodluck block
-    glUser.textContent = "";
-    //Clear the username input field.
-    document.querySelector("#input").value = "";
-    //Make sure the questions section is hidden at initial onset
-    span.setAttribute("style", "display: none");
+    //Set local variables from the initial instance of the quiz
+    var greetingBlock = document.querySelector("#greetingBlock");
     //Show username input div
     greetingBlock.setAttribute("style", "display:block;");
+    input.value = "";
+    //Reset content of Goodluck block
+    var glUser = document.querySelector("#glUser");
+    glUser.textContent = "";
+
+
+    var span = document.querySelector("#questSpan");
+
+    //Hide HTML elements for personal score card and recent users leaderboard. 
+    document.querySelector("#results").setAttribute("style", "display:none;");
+
+
+    //Make sure the questions section is hidden at initial onset
+    span.setAttribute("style", "display: none");
+
     //Reset js stats to zero for new user.
     userStats.score = 0;
     //Make sure timer doesn't start running until called in nameSubmit().
