@@ -14,6 +14,7 @@ var glUser = document.querySelector("#glUser");
 
 //Set global variable for divUID
 var divUID = document.querySelector("#divUID");
+var timerDiv = document.querySelector("#timerDiv");
 
 
 //GreetingBlock Function just to log and store the user name and start quiz timer.
@@ -22,16 +23,6 @@ function nameSubmit() {
     var greetingBlock = document.querySelector("#greetingBlock")
     var span = document.querySelector("#questSpan");
     var userName = document.querySelector("#input").value;
-    /*
-    !!!!!!  FIGURE THIS OUT   !!!!!!
-    var headerEl = document.querySelector("header");
-    var divUID = document.querySelector("#divUID");
-    //Display timer and moral support.
-    headerEl.children['#divTimer'].setAttribute("style", "display:block;");
-    headerEl.children['#divUID'].setAttribute("style", "display:block;");
-    
-    
-    */
     //Provide user with moral support
     glUser.textContent = "Good luck, " + userName;
     //Display the quiz
@@ -56,7 +47,7 @@ nameBtn.addEventListener("click", nameSubmit);
 
 //Create JS variables linking HTML elements for timer
 var timerElement = document.querySelector('.timer');
-var timerDiv = document.querySelector('#timerDiv');
+// var timerDiv = document.querySelector('#timerDiv');
 
 //Declare global variables for use calculating time results & setting and resetting timer
 var originalTimer = 240;
@@ -66,9 +57,9 @@ var timeInterval = "";
 //Create the timer function
 function quizTime() {
     //stylize timerDiv
-    timerDiv.setAttribute('style', ' box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.67);');
+    timerDiv.setAttribute('style', 'display:block; box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.67);');
     //stylize glUser ptag
-    divUID.setAttribute('style', ' box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.67);');
+    divUID.setAttribute('style', 'display:block; box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.67);');
 
     // timerElement.textContent = startTime + " seconds left."
 
