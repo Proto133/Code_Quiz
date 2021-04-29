@@ -9,6 +9,12 @@ var userStats = {
     score: "",
     time: "",
 };
+//Set global variable for good luck user p tag
+var glUser = document.querySelector("#glUser");
+
+//Set global variable for divUID
+var divUID = document.querySelector("#divUID");
+
 
 //GreetingBlock Function just to log and store the user name and start quiz timer.
 function nameSubmit() {
@@ -16,7 +22,16 @@ function nameSubmit() {
     var greetingBlock = document.querySelector("#greetingBlock")
     var span = document.querySelector("#questSpan");
     var userName = document.querySelector("#input").value;
-    var glUser = document.querySelector("#glUser");
+    /*
+    !!!!!!  FIGURE THIS OUT   !!!!!!
+    var headerEl = document.querySelector("header");
+    var divUID = document.querySelector("#divUID");
+    //Display timer and moral support.
+    headerEl.children['#divTimer'].setAttribute("style", "display:block;");
+    headerEl.children['#divUID'].setAttribute("style", "display:block;");
+    
+    
+    */
     //Provide user with moral support
     glUser.textContent = "Good luck, " + userName;
     //Display the quiz
@@ -32,7 +47,8 @@ function nameSubmit() {
     //Store username to Local Storage -- may be redundant possible refactor deletion.
     localStorage.setItem("Name", userStats.name);
     //Set startTime to allocated time
-    startTime = 300;
+    startTime = 240;
+
 }
 //Add listener event 'click' to HTML nameBtn
 nameBtn.addEventListener("click", nameSubmit);
@@ -41,13 +57,18 @@ nameBtn.addEventListener("click", nameSubmit);
 //Create JS variables linking HTML elements for timer
 var timerElement = document.querySelector('.timer');
 var timerDiv = document.querySelector('#timerDiv');
+
 //Declare global variables for use calculating time results & setting and resetting timer
-var originalTimer = 300;
-var startTime = 300;
+var originalTimer = 240;
+var startTime = 240;
 var timeInterval = "";
 
 //Create the timer function
 function quizTime() {
+    //stylize timerDiv
+    timerDiv.setAttribute('style', ' box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.67);');
+    //stylize glUser ptag
+    divUID.setAttribute('style', ' box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.67);');
 
     // timerElement.textContent = startTime + " seconds left."
 
@@ -340,7 +361,10 @@ function updateList() {
 }
 //Manipulate HTML to properly display the updated ScoreList.
 function showScoreList() {
-    //Hide personal results
+    //Clear timerDiv textContent in HTML
+    timerDiv.textContent = ""
+    timerDiv.setAttribute('style', ';')
+        //Hide personal results
     document.querySelector("#results").setAttribute("style", "display:none;")
         //Show ScoreCard
     document.querySelector("#scoreCard").setAttribute("style", "display: block;");
@@ -364,9 +388,11 @@ function startOver() {
     //Hide HTML elements for personal score card and recent users leaderboard. 
     document.querySelector("#results").setAttribute("style", "display:none;")
     document.querySelector("#scoreCard").setAttribute("style", "display: none;");
+    document.querySelector("#divTimer").setAttribute("style", "display:none;");
+    document.querySelector("#divUID").setAttribute("style", "display:none;");
     //Reset content of Goodluck block
-    glUser.textContent = ""
-        //Clear the username input field.
+    glUser.textContent = "";
+    //Clear the username input field.
     document.querySelector("#input").value = "";
     //Make sure the questions section is hidden at initial onset
     span.setAttribute("style", "display: none");
