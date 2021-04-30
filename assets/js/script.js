@@ -61,23 +61,21 @@ var timerElement = document.querySelector('.timer');
 //Declare global variables for use calculating time#results & setting and resetting timer
 var originalTimer = 240;
 var startTime = 240;
-var timeInterval;
-var timesUp = 0;
+
 
 function quizTime() {
     console.log("quizTime fired");
     quizTime.fired = true;
     //timerElement
-    timerInterval = setInterval(function() {
-        timerElement.textContent = startTime + " seconds left.";
+    var timerInterval = setInterval(function() {
         if (startTime > 0) {
             startTime--
+            console.log("in the if ", startTime);
         } else {
             checkComplete();
-            clearInterval(timeInterval);
-
+            clearInterval(timerInterval);
         }
-
+        timerElement.textContent = startTime + " seconds left.";
     }, 1000);
 }
 
@@ -329,7 +327,7 @@ function checkAnswer() {
 
     } else {
         startTime = startTime -= 5;
-        timerElement.textContent = startTime + " seconds left.";
+        // timerElement.textContent = startTime , " seconds left.";
     };
 
 }
