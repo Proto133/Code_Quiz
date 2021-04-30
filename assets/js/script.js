@@ -62,14 +62,18 @@ var timerElement = document.querySelector('.timer');
 var originalTimer = 240;
 var startTime = 240;
 
-
+//Actual timer function
 function quizTime() {
+
+    //Diagnostic console.log
     console.log("quizTime fired");
+    //Diagnostic function
     quizTime.fired = true;
     //timerElement
     var timerInterval = setInterval(function() {
         if (startTime > 0) {
             startTime--
+            //Diagnostic console.log
             console.log("in the if ", startTime);
         } else {
             checkComplete();
@@ -81,6 +85,7 @@ function quizTime() {
 
 function checkComplete() {
     if (checkComplete.fired != true && userScoreboard.fired != true) {
+        //Diagnostic console.log
         console.log("checkComplete fired")
         didNotFinish();
         return checkComplete.fired = true;
@@ -89,6 +94,7 @@ function checkComplete() {
 }
 //Stop timer and capture time of quiz completion.
 function stopTimer() {
+    //Diagnostic console.log
     console.log("stopTimer fired");
     stopTimer.fired = true;
     if (startTime > 0) {
@@ -269,6 +275,7 @@ var currentQuestion = 0
 
 //Generate Text 
 function quiz() {
+    //Diagnostic console.log
     console.log("quiz fired");
     //stylize timerDiv
     timerDiv.setAttribute('style', 'display:block; box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.67);');
@@ -303,6 +310,7 @@ var currentCorrectAnswer = "";
 
 //Crosscheck value on button click against Correct Answer.
 function storeGuess(v) {
+    //Diagnostic console.log
     console.log("storeGuess fired.");
     var quizProgress = quizQs.length - 1;
     guessValue = v;
@@ -318,6 +326,7 @@ function storeGuess(v) {
 /*React appropriately when the answer is checked against the answer key
 add 1 to Score or deduct 5 seconds from time.*/
 function checkAnswer() {
+    //Diagnostic console.log
     console.log("checkAnswer Fired");
     checkAnswer.fired = true;
     currentCorrectAnswer = quizQs[currentQuestion].correctAnswer;
@@ -364,6 +373,7 @@ function userScoreboard() {
 
 //Update the scoreboard for recent users.
 function updateList() {
+    //Diagnostic console.log
     console.log("updateList fired.");
     //Hide personal results
     document.querySelector("#results").setAttribute("style", "display:none;");
@@ -378,6 +388,7 @@ function updateList() {
 }
 //Manipulate HTML to properly display the updated ScoreList.
 function showScoreList() {
+    //Diagnostic console.log
     console.log("showScoreList fired.");
     //Clear timerElement textContent in HTML
     timerElement.textContent = "";
@@ -398,9 +409,12 @@ function showScoreList() {
     user2.textContent = last3[1].Name + " | " + last3[1].Score + " | " + last3[1].Time + " seconds";
     user3.textContent = last3[2].Name + " | " + last3[2].Score + " | " + last3[2].Time + " seconds";
 }
-//Reset necessary elements and variables to launch the quiz subsequent times.
+/*Reset necessary elements and variables upon normal completion of application,
+ to launch the quiz subsequent times.*/
 function startOver() {
+    //Diagnostic console.log
     console.log("startOver fired");
+    //Diagnostic function
     startOver.fired = true;
     //Hide HTML elements for personal score card and recent users leaderboard. 
     document.querySelector("#results").setAttribute("style", "display:none;");
@@ -429,9 +443,11 @@ function startOver() {
 
 }
 var runningIndex = last3.length - 1;
-
+/*Fires game reset if the timer runs out and the user didn't get through the questions*/
 function didNotFinish() {
+    //Diagnostic console.log
     console.log("didNotFinish fired.");
+    //Diagnostic function.
     didNotFinish.fired = true;
     if (userScoreboard.fired != true) {
         startTime = 240000;
@@ -457,8 +473,8 @@ function didNotFinish() {
         //Reset js stats to zero for new user.
         userStats.score = 0;
         userStats.time = 0;
-        last3.splice(index, runningIndex)
-            //Make sure timer doesn't start running until called in nameSubmit().
+        last3.splice(index, runningIndex);
+        //Make sure timer doesn't start running until called in nameSubmit().
         timerInterval = 0;
         //Start quiz from index 0 of quizQs array.
         currentQuestion = 0;
