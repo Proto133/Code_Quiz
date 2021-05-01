@@ -12,7 +12,6 @@ var userStats = {
 
 //Adding  a initialization function to crosscheck whether a function has been fired for if statements
 function initFunction() {
-    console.log("initFunction fired");
     Function.prototype.fired = false;
     userStats.time = "";
     userStats.score = "";
@@ -85,7 +84,7 @@ function quizTime() {
         }
     }, 1000);
 }
-
+//Check if the person finished before time ran out if not fire didNotFinish
 function checkComplete() {
     if (userScoreboard.fired != true) {
         //Diagnostic console.log
@@ -274,6 +273,7 @@ var quizQs = [{
 
 //Define score as a Global variable to keep track through the different functions.
 var score = 0
+    //Set localStorage Item for later use.
 localStorage.setItem("Score", score);
 //Globally set the currentQuestion variable to 0 so quiz always begins at the first question
 var currentQuestion = 0
@@ -320,6 +320,7 @@ function storeGuess(v) {
     var quizProgress = quizQs.length - 1;
     guessValue = v;
     checkAnswer();
+    //If the quiz isn't over, go to next(), if you're out of questions stopTimer() and fire the userScoreboard()
     if (currentQuestion < quizProgress) {
         next();
     } else {
@@ -342,7 +343,6 @@ function checkAnswer() {
 
     } else {
         startTime = startTime -= 5;
-        // timerElement.textContent = startTime , " seconds left.";
     };
 
 }
@@ -367,8 +367,6 @@ function userScoreboard() {
     results.setAttribute("style", "display:block;");
     var resultsList = document.querySelector("#resultsList");
     resultsList.setAttribute("style", "display:block");
-    //Collect and calculate time spent on quiz
-    // var userTime = userStats.time;
     //Display result of timeSpent in HTML
     recordTime.textContent = userStats.time + " seconds!";
     //Display result of score in HTML
