@@ -50,7 +50,7 @@ function nameSubmit() {
     //Store username to Local Storage -- may be redundant possible refactor deletion.
     localStorage.setItem("Name", userStats.name);
     //Set startTime to allocated time
-    startTime = 240;
+    startTime = 180;
 }
 //Add listener event 'click' to HTML nameBtn
 nameBtn.addEventListener("click", nameSubmit);
