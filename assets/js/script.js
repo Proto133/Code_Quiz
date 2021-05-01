@@ -51,8 +51,6 @@ function nameSubmit() {
     localStorage.setItem("Name", userStats.name);
     //Set startTime to allocated time
     startTime = 240;
-
-
 }
 //Add listener event 'click' to HTML nameBtn
 nameBtn.addEventListener("click", nameSubmit);
