@@ -13,7 +13,11 @@ var userStats = {
 //Adding  a initialization function to crosscheck whether a function has been fired for if statements
 function initFunction() {
     console.log("initFunction fired");
-    checkComplete.prototype.fired = false
+    Function.prototype.fired = false;
+    userStats.time = "";
+    userStats.score = "";
+    userStats.name = "";
+
 }
 initFunction();
 //Set global variable for good luck user p tag
@@ -59,38 +63,38 @@ var timerElement = document.querySelector('.timer');
 
 
 //Declare global variables for use calculating time#results & setting and resetting timer
-var originalTimer = 240;
-var startTime = 240;
+var originalTimer = 180;
+var startTime = 180;
+var timerInterval;
+var userTime;
 
 //Actual timer function
 function quizTime() {
-
     //Diagnostic console.log
     console.log("quizTime fired");
     //Diagnostic function
     quizTime.fired = true;
     //timerElement
     var timerInterval = setInterval(function() {
+        timerElement.textContent = startTime + " seconds left.";
         if (startTime > 0) {
-            startTime--
-            //Diagnostic console.log
-            console.log("in the if ", startTime);
+            startTime--;
+            // //Diagnostic console.log
+            // console.log("in the if ", startTime);
         } else {
             checkComplete();
             clearInterval(timerInterval);
         }
-        timerElement.textContent = startTime + " seconds left.";
     }, 1000);
 }
 
 function checkComplete() {
-    if (checkComplete.fired != true && userScoreboard.fired != true) {
+    if (userScoreboard.fired != true) {
         //Diagnostic console.log
-        console.log("checkComplete fired")
+        console.log("checkComplete fired");
         didNotFinish();
-        return checkComplete.fired = true;
-    }
 
+    }
 }
 //Stop timer and capture time of quiz completion.
 function stopTimer() {
@@ -98,14 +102,17 @@ function stopTimer() {
     console.log("stopTimer fired");
     stopTimer.fired = true;
     if (startTime > 0) {
-        timerElement.textContent = "Completed."
-        clearInterval(timerInterval);
+        timerElement.textContent = "Completed.";
         //Compare originalTimer against current state of startTime and stores time in userStats
         //Commit the user input to the userStats object as name
         userTime = originalTimer - startTime;
+        console.log(userTime);
+        userStats.time = userTime;
         //Save this time to storage
         localStorage.setItem("Time", userTime);
     };
+
+
     //Zero out timer
     startTime = 0;
 
@@ -318,9 +325,10 @@ function storeGuess(v) {
     if (currentQuestion < quizProgress) {
         next();
     } else {
-        userScoreboard();
         //stop timer and display
         stopTimer();
+        userScoreboard();
+
     };
 }
 /*React appropriately when the answer is checked against the answer key
@@ -351,6 +359,7 @@ var recordTime = document.querySelector("#timeSpent");
 
 //Function for manipulating HTML appropriately upon finishing the quiz.
 function userScoreboard() {
+    userScoreboard.fired = true;
     console.log("userScoreboard fired.");
     //Get rid of Questions Block
     var span = document.querySelector("#questSpan");
@@ -358,17 +367,14 @@ function userScoreboard() {
     //Show ScoreBoard 
     var results = document.querySelector("#results");
     results.setAttribute("style", "display:block;");
+    var resultsList = document.querySelector("#resultsList");
+    resultsList.setAttribute("style", "display:block");
     //Collect and calculate time spent on quiz
-    userTime = localStorage.getItem("Time");
-    userStats.time = userTime;
+    // var userTime = userStats.time;
     //Display result of timeSpent in HTML
-    recordTime.textContent = userTime + " seconds!";
-    //Collect and calculate score for correct answers on quiz
-    var userScore = localStorage.getItem("Score");
-    userStats.score = userScore;
+    recordTime.textContent = userStats.time + " seconds!";
     //Display result of score in HTML
-    recordScore.textContent = userScore + " out of " + quizQs.length;
-    return userScoreboard.fired = true;
+    recordScore.textContent = userStats.score + " out of " + quizQs.length;
 }
 
 //Update the scoreboard for recent users.
@@ -440,7 +446,8 @@ function startOver() {
     timerInterval = 0;
     //Start quiz from index 0 of quizQs array.
     currentQuestion = 0;
-
+    userScoreboard.fired = false;
+    initFunction();
 }
 var runningIndex = last3.length - 1;
 /*Fires game reset if the timer runs out and the user didn't get through the questions*/
@@ -473,7 +480,7 @@ function didNotFinish() {
         //Reset js stats to zero for new user.
         userStats.score = 0;
         userStats.time = 0;
-        last3.splice(index, runningIndex);
+
         //Make sure timer doesn't start running until called in nameSubmit().
         timerInterval = 0;
         //Start quiz from index 0 of quizQs array.
