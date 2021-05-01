@@ -7,20 +7,28 @@ The Javascript Code Quiz is a fun and interactive way to test your basic javascr
 ## Screenshots and Links
 <a href="https://proto133.github.io/Code_Quiz/" target="_blank">Link to Deployed Application</a>
 
-<a href="https://github.com/proto133/Code_Quiz/assets/images/forREADME/Code_Quiz-Desktop1.png" target="_blank">
-<img src="src=/assets/images/forREADME/Code_Quiz-Desktop1.png" alt="Screenshot of Application" style="height: 150px; width:150px;">
+<a href="assets/images/forREADME/Code_Quiz-Desktop1.png" target="_blank">
+<img src="assets/images/forREADME/Code_Quiz-Desktop1.png" alt="Screenshot of Application" style="height:150px; width:150px; margin:2px 10px 0;">
 </a>
-<a href="https://github.com/proto133/Code_Quiz/assets/images/forREADME/Code_Quiz-Desktop1.png" target="_blank">
-<img src=".assets/images/forREADME/Code_Quiz-Desktop2.png" alt="Screenshot of Application" href="https://github.com/proto133/Code_Quiz/assets/images/forREADME/Code_Quiz-Desktop2.png" target="_blank"style="height: 150px; width:150px;">
+<a href="assets/images/forREADME/Code_Quiz-Desktop2.png" target="_blank">
+<img src="assets/images/forREADME/Code_Quiz-Desktop2.png" alt="Screenshot of Application" href="https://github.com/proto133/Code_Quiz/assets/images/forREADME/Code_Quiz-Desktop2.png" target="_blank"style="height: 150px; width:150px;margin:2px 10px 0;">
 </a>
-<a href="https://github.com/proto133/Code_Quiz/assets/images/forREADME/Code_Quiz-Desktop1.png" target="_blank">
-<img src=".assets/images/forREADME/Code_Quiz-Desktop3.png" alt="Screenshot of Application" href="https://github.com/proto133/Code_Quiz/assets/images/forREADME/Code_Quiz-Desktop3.png" target="_blank"style="height: 150px; width:150px;">
+<a href="assets/images/forREADME/Code_Quiz-Desktop3.png" target="_blank">
+<img src="assets/images/forREADME/Code_Quiz-Desktop3.png" alt="Screenshot of Application" href="https://github.com/proto133/Code_Quiz/assets/images/forREADME/Code_Quiz-Desktop3.png" target="_blank"style="height: 150px; width:150px;margin:2px 10px 0;">
 </a>
-./assets/images/forREADME/Code_Quiz-Mobile-1.png
-./assets/images/forREADME/Code_Quiz-Mobile-2.png
-./assets/images/forREADME/Code_Quiz-Mobile-3.png
+<br>
+<br>
+<a href="assets/images/forREADME/Code_Quiz-Mobile-1.png" target="_blank">
+<img src="assets/images/forREADME/Code_Quiz-Mobile-1.png" alt="Screenshot of Application" style="height: 150px; width:150px;margin:2px 10px 0;">
+</a>
+<a href="assets/images/forREADME/Code_Quiz-Mobile-2.png" target="_blank">
+<img src="assets/images/forREADME/Code_Quiz-Mobile-2.png" alt="Screenshot of Application" style="height: 150px; width:150px;margin:2px 10px 0;"> </a>
+<a href="assets/images/forREADME/Code_Quiz-Mobile-3.png" target="_blank">
+<img src="assets/images/forREADME/Code_Quiz-Mobile-3.png" alt="Screenshot of Application" style="height: 150px; width:150px;margin:2px 10px 0;"></a>
 
-### Works Cited
+
+---
+## Works Cited
 
 ---
 <h3> Quiz questions pulled from:</h3>
